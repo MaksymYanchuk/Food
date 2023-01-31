@@ -8,7 +8,8 @@ window.addEventListener("DOMContentLoaded", ()=> {
     
     function hideTabContent() {
         tabsContent.forEach(item => {
-            item.style.display = "none";
+            item.classList.remove("show");
+            item.classList.add("hide");
         });
 
         tabs.forEach(item => {
@@ -17,14 +18,15 @@ window.addEventListener("DOMContentLoaded", ()=> {
     }
 
     function showTabContent(i = 0) {
-        tabsContent[i].style.display = "block";
+        tabsContent[i].classList.add("show", "fade");
+        tabsContent[i].classList.remove("hide")
         tabs[i].classList.add('tabheader__item_active');
     }
     
     tabsParent.addEventListener('click', (event) => {
         const target = event.target;
 
-        if (target && target.classList.contains('tabheader__item')){
+        if (target && target.classList.contains('tabheader__item')) {
             tabs.forEach((item, i) => {
 
                 if (target == item) {
@@ -42,7 +44,7 @@ window.addEventListener("DOMContentLoaded", ()=> {
 
     const deadline = "2024-01-01 00:00:00";
 
-    function getTimeRemaining(endtime){
+    function getTimeRemaining(endtime) {
         const t = Date.parse(endtime) - Date.parse(new Date()),
               days = Math.floor(t / (1000 * 60 * 60 * 24)),
               hours = Math.floor((t / (1000 * 60 * 60) % 24)),
@@ -57,13 +59,42 @@ window.addEventListener("DOMContentLoaded", ()=> {
             'seconds':seconds,
         };
     }
-    
-    function setClock(selector, endtime){
+  
+    function getZero(num) {
+        if (num >=0 && num < 10) {
+            return `0${num}`;
+        } else {
+            return num;
+        }
+        
+    }
+
+    function setClock(selector, endtime) {
         const timer = document.querySelector(selector),
               days = timer.querySelector('#days'),
               hours = timer.querySelector('#hours'),
               minutes = timer.querySelector('#minutes'),
-              seconds = timer.querySelector('#seconds');
+              seconds = timer.querySelector('#seconds'),
+              timeInterval = setInterval(updateClock, 1000);
+
+        updateClock();
+
+        function updateClock() {
+            const t = getTimeRemaining(endtime);
+            days.innerHTML = getZero(t.days) ;
+            hours.innerHTML = getZero(t.hours);
+            minutes.innerHTML= getZero(t.minutes);
+            seconds.innerHTML = getZero(t.seconds);
+
+            if (t <= 0) {
+                clearInterval(timeInterval);
+            }
+        }
+
+   
+
     }
+
+    setClock(".timer", deadline);
 
 });
