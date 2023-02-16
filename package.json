@@ -1,0 +1,22 @@
+{
+  "name": "food-dist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boomer77777/Food.git"
+  },
+  "author": "Maksym",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/boomer77777/Food/issues"
+  },
+  "homepage": "https://github.com/boomer77777/Food#readme",
+  "devDependencies": {
+    "json-server": "^0.17.1"
+  }
+}
